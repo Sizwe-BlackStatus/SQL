@@ -18,6 +18,22 @@ LastName VARCHAR (50) NOT NULL,
 Email VARCHAR (100) NOT NULL,
 JobTitle VARCHAR (20) NOT NULL);
 
+
+CREATE TABLE Products (
+ProductId serial PRIMARY KEY,
+ProductName VARCHAR (100) NOT NULL,
+Description VARCHAR (300) NOT NULL,
+BuyPrice_r NUMERIC(5,2) NOT NULL);
+
+CREATE TABLE Payments (
+CustomerID int NOT NULL,
+PaymentID serial PRIMARY KEY,
+PaymentDate DATE NOT NULL,
+Amount_r NUMERIC(5,2) NOT NULL,
+FOREIGN KEY (CustomerID) 
+ REFERENCES customers (CustomerID)
+);
+
 CREATE TABLE Orders(
 OrderId serial PRIMARY KEY,
 ProductID int NOT NULL,
@@ -30,21 +46,6 @@ FOREIGN KEY (ProductID) REFERENCES Products (ProductID),
 FOREIGN KEY (PaymentID) REFERENCES Payments (PaymentID),
 FOREIGN KEY (FulfilledByEmployeeID) REFERENCES Employees (EmployeeID)
 );
-
-CREATE TABLE Payments (
-CustomerID int NOT NULL,
-PaymentID serial PRIMARY KEY,
-PaymentDate DATE NOT NULL,
-Amount_r NUMERIC(5,2) NOT NULL,
-FOREIGN KEY (CustomerID) 
- REFERENCES customers (CustomerID)
-);
-
-CREATE TABLE Products (
-ProductId serial PRIMARY KEY,
-ProductName VARCHAR (100) NOT NULL,
-Description VARCHAR (300) NOT NULL,
-BuyPrice_r NUMERIC(5,2) NOT NULL);
 
 INSERT INTO Customers (FirstName, LastName, Gender, Address, Phone, Email, City, Country)
 VALUES ('John', 'Hibert', 'Male', '284 chaucer st', '084789657', 'john@gmail.com', 'Johanesburg', 'South Africa'),
